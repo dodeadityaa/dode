@@ -1,8 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\admin;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class tambah extends Controller
 {
@@ -23,7 +27,13 @@ class tambah extends Controller
      */
     public function create(Request $request)
     {
-        \App\admin::create($request->all());
+        //\App\admin::create($request->all());
+        \App\admin::create([
+            'nama' => $request['nama'],
+            'email' => $request['email'],
+            'no_telp' => $request['no_telp'],
+            'password' => bcrypt($request['password'])
+        ]);
         return redirect('/loginin')->with('sukses','Data Berhasil Di Inputkan');
     }
 
@@ -35,7 +45,14 @@ class tambah extends Controller
      */
     public function store(Request $request)
     {
-        //
+                //\App\admin::create($request->all());
+                \App\admin::create([
+                    'nama' => $request['nama'],
+                    'email' => $request['email'],
+                    'no_telp' => $request['no_telp'],
+                    'password' => bcrypt($request['password'])
+                ]);
+                return redirect('/daftaradmin')->with('sukses','Data Berhasil Di Inputkan');
     }
 
     /**

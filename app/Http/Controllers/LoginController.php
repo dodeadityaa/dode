@@ -17,6 +17,6 @@ class LoginController extends Controller
         if(Auth::attempt($request->only('email','password'))){
             return redirect('/dashboard');
         }
-        //return redirect('/loginin');
+        return redirect('/loginin');
     }
 }
