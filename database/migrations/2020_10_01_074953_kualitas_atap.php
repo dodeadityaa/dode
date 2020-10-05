@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSumberAirsTable extends Migration
+class KualitasAtap extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateSumberAirsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sumber_airs', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('keterangan_sumber_air');
-            $table->integer('nilai');
-            $table->timestamps();
-        });
+        {
+            Schema::create('kualitas_atap', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('keterangan_kualitas_atap');
+                $table->integer('nilai');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -28,6 +30,6 @@ class CreateSumberAirsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sumber_airs');
+        //
     }
 }

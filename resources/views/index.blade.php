@@ -1,80 +1,67 @@
+<!DOCTYPE html>
 <html>
-	<head>
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
-		<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
-		<style>
-			#info {position: absolute;top: 0;bottom: 30;left: 0;right: 0;}
-			#map {position: absolute;top: 30;bottom: 0;left: 0;right: 0;}
-		</style>
-	</head>
 
-	<body>
-		<!-- div untuk menampilkan info -->
-		<div id="info">Informasi</div>
+<head>
+	<title>SI Miskin</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+	<link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
+	<link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+	<script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+	<!-- Bootstrap 4 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<!--Google Fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+	<style type="text/css">
+		#peta {
+			height: 100vh;
+		}
+	</style>
+</head>
 
-		<!-- mendefinisikan canvas untuk menempatkan map OpenStreetMap (OSM) -->
-		<div id="map"></div>
-		
-		<script>
-			/* 
-				mendefinisikan sebuah variabel map untuk mengatur layer map OSM pada canvas dengan parameter koordinat awal dan zoom level
-			*/
-			var map = L.map('map').setView([-8.5240574,115.2110998],11);
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		@auth
+		<a id="" href="#" class="p-0"><img src="/{{Auth::user()->profille_image}}" style="border-radius: 50%;border:black 1px solid; width: 22px; height: 22px" alt=""></a>
+		@else
+		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="/loginin">Login</a>
+				</li>
+			</ul>
+		</div>
+		@endauth
+	</nav>
+	<div id="peta"></div>
 
-			/*	mendefinisikan sebuah variable popup */
-			var popup = L.popup();
 
-			/*  variabel untuk menghitung indeks marker yang telah dibuat */
-			var countId = 0;
+	<script type="text/javascript">
+		var mapOptions = {
+			center: [-8.442113, 115.192170],
+			zoom: 10
+		}
 
-			// menampilkan layer map OSM pada canvas
-			L.tileLayer('https://maps.tilehosting.com/styles/streets/{z}/{x}/{y}.png?key=YrAn6SOXelkLFXHv03o2',{
-				attribution:'<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>',
-			}).addTo(map);
+		var peta = new L.map('peta', mapOptions);
 
-			// menangkap event on-click pada map dan memunculkan sebuah marker
-			map.on('click',function(e){
-				
-				/* indeks ditambahkan 1 setiap marker akan dibuat */
-				countId = countId + 1;
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+			maxZoom: 18,
+			id: 'mapbox.streets',
+			accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+		}).addTo(peta);
+	</script>
+	<!-- JQuery -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!--Popper-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<!--Bootstrap-->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
 
-				var marker = L.marker(e.latlng,{
-					draggable: 'true',
-					/* 
-						saya menambahkan atribut baru berupa id untuk menandai indeks marker yang dibuat
-						silahkan tambahkan atribut untuk menambahkan informasi lainnya jika diperlukan
-					*/
-					id: countId,
-				}).addTo(map);				
-	
-				marker.on('click',function(e){
-					/* cara pengambilan nilai atribut dari marker*/
-					var id = marker.options.id;
-					
-	        		popup.setLatLng([e.latlng.lat+0.02,e.latlng.lng]);
-	        		popup.setContent('Anda meng-klik marker '+id+' di koordinat :<br>'+'Latitude : '+marker.getLatLng().lat+'<br>Longitude : '+marker.getLatLng().lng+'');
-	        		popup.openOn(map);
-				});
-
-			});
-
-			// menangkap event right-click pada map
-			map.on('contextmenu',function(e){
-				alert('Anda menekan tombol mouse klik kanan pada koordinat : '+e.latlng);
-			});
-
-			/* 
-				menangkap event pergerakan mouse dan menampilkan koordinat mouse pada div info.
-			 	
-			 	saya mengakses html DOM dengan javascript murni, jika anda ingin lebih simpel
-			 	dan mudah silahkan menggunakan library jQuery dalam mengakses html DOM.
-
-			 	perhatikan cara saya mengambil data koordinat pada event ini dan bandingkan dengan
-			 	cara yang saya lakukan pada event sebelumnya
-			*/
-			map.on('mousemove',function(e){
-				document.getElementById("info").innerHTML="Koordinat : ("+e.latlng.lat+","+e.latlng.lng+")";
-			});
-		</script>
-	</body>
 </html>

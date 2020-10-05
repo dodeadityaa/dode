@@ -1,0 +1,218 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+      var table = $('#datatable').DataTable();
+
+      table.on('click','.edit', function(){
+        $tr = $(this).closest('tr');
+        if ($($tr).hasClass('child')){
+          $tr = $tr.prev('.parent');
+        }
+
+        var data = table.row($tr).data();
+        console.log(data);
+
+        $("#nama").val(data[1]);
+        $("#email").val(data[2]);
+        $("#no_telp").val(data[3]);
+        $("#password").val(data[4]);
+
+        $('#editForm').attr('action', '/admin/editit/'+data[0]);
+        $('#editModal').modal('show');
+      });
+    });
+
+</script>
+
+index.php
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Menampilkan Peta dengan LeafletJS</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://leaflet.github.io/Leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <script src="https://leaflet.github.io/Leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+	<style type="text/css">
+		#peta{
+			height:100vh;
+		}
+	</style>
+</head>
+<body>
+	<div id="peta"></div>
+	<div class="login-floating p-0">
+            @auth
+            <a id="sidebar-nav" href="#" class="p-0"><img src="/{{Auth::user()->profille_image}}" style="border-radius: 50%;border:black 1px solid; width: 22px; height: 22px" alt=""></a>
+            @else
+                <ul class="row  mr-2 p-0 ">
+                    <a href="/loginin" style="color:black">Login</a><span class="mx-2"></span> | <span class="mx-2"></span>
+                </ul>
+            @endauth
+        </div>
+
+	<script type="text/javascript">
+		var mapOptions = {
+			center: [-8.458414, 115.076813],
+			zoom: 10
+		}
+
+		var peta = new L.map('peta', mapOptions);
+
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+			maxZoom: 18,
+			id: 'mapbox.streets',
+			accessToken: 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw'
+		}).addTo(peta);
+
+	</script>
+
+</body>
+</html>
+
+value="@if(isset($adminin->nama)) {{$adminin->nama}} @endif" id="id" nama="nama"
+value="{{isset($adminin) ? $adminin->email : ''}}"
+value="{{isset($adminin) ? $adminin->alamat : ''}}"
+value="{{isset($adminin) ? $adminin->jenis_kelamin : ''}}"
+value="{{isset($adminin) ? $adminin->no_telp : ''}}"
+value="{{isset($adminin) ? $adminin->password : ''}}
+
+        $adminin = admin::find($id);
+
+        $adminin->update([
+            'nama' => $request['nama'],
+            'email' => $request['email'],
+            'alamat' => $request['alamat'],
+            'jenis_kelamin' => $request['jenis_kelamin'],
+            'no_telp' => $request['no_telp'],
+            'password' => bcrypt($request['password'])
+        ]);
+
+
+                        //\App\admin::create($request->all());
+                \App\admin::create([
+                    'nama' => $request['nama'],
+                    'email' => $request['email'],
+                    'alamat' => $request['alamat'],
+                    'jenis_kelamin' => $request['jenis_kelamin'],
+                    'no_telp' => $request['no_telp'],
+                    'avatar' => $request->file('avatar')->store('avatarss'),
+                    'password' => bcrypt($request['password'])
+                ]);
+                return redirect('/daftaradmin')->with('sukses','Data Berhasil Di Inputkan');
+
+        $this->call(airminumseeder::class);
+        $this->call(buang_air_seeder::class);
+        $this->call(jenis_atap_seeder::class);
+        $this->call(jenis_dinding_seeder::class);
+        $this->call(jenis_kloset_seeder::class);
+        $this->call(jenis_lantai_seeder::class);
+        $this->call(jumlah_hewan_seeder::class);
+        $this->call(Kamar_tidur_seeder::class);
+        $this->call(Kualitas_seeder::class);
+        $this->call(lahan_seeder::class);
+        $this->call(listrik_seeder::class);
+
+        public function lahankan()
+    {
+        $lahanss = DB::table('lahans')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('lahanss', $lahanss);
+    }
+    public function luas_lantaikan()
+    {
+        $luaslantaiss = DB::table('luas_lantais')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('luaslantaiss', $luaslantaiss);
+    }
+    public function jenislantaikan()
+    {
+        $$jenislantaiss = DB::table('jenis_lantais')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('jenislantaiss', $jenislantaiss);
+    }
+    public function jenisdindingkan()
+    {
+        $jenisdindingss = DB::table('jenis_dindings')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('jenisdindingss', $jenisdindingss);
+    }
+    public function kualitaskan()
+    {
+        $kualitass = DB::table('kualitas')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('kualitass', $kualitass);
+    }
+    public function jenisatapkan()
+    {
+        $jenisatapss = DB::table('jenis_ataps')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('jenisatapss', $jenisatapss);
+    }
+    public function kamartidurkan()
+    {
+        $kamartidurss = DB::table('kamar_tidurs')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('kamartidurss', $kamartidurss);
+    }
+    public function sumberairkan()
+    {
+        $sumberairss = DB::table('sumber_airs')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('sumberairss', $sumberairss);
+    }
+    public function airminumkan()
+    {
+        $airminumss = DB::table('air_minums')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('airminumss', $airminumss);
+    }
+    public function listrikan()
+    {
+        $listrikss = DB::table('listriks')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('listrikss', $listrikss);
+    }
+    public function wattkan()
+    {
+        $wattss = DB::table('watts')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('wattss', $wattss);
+    }
+    public function bahanbakarkan()
+    {
+        $bahanbakarss = DB::table('bahan_bakar_masaks')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('bahanbakarss', $bahanbakarss);
+    }
+    public function buangairkan()
+    {
+        $buangairss = DB::table('buang_airs')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('buangairss', $buangairss);
+    }
+    public function jenisklosetkan()
+    {
+        $jenisklosetss = DB::table('jenis_klosets')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('jenisklosetss', $jenisklosetss);
+    }
+    public function pembuanganakhirkan()
+    {
+        $pembuanganakhirss = DB::table('pembuangan_akhirs')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('pembuanganakhirss', $pembuanganakhirss);
+    }
+    public function jumlahhewankan()
+    {
+        $jumlahhewanss = DB::table('jumlah_hewans')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('jumlahhewanss', $jumlahhewanss);
+    }
+    public function yesnokan()
+    {
+        $yesnoss = DB::table('yes_nos')->get();
+        // return $provinces_list;
+        return view('tampilan.formKK')->with('yesnoss', $yesnoss);
+    }

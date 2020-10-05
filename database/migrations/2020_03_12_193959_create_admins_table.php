@@ -17,7 +17,10 @@ class CreateAdminsTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->string('email');
+            $table->string('alamat');
+            $table->string('jenis_kelamin');
             $table->string('no_telp');
+            $table->string('avatar')->nullabel()->default(null);
             $table->string('password');
             $table->timestamps();
         });

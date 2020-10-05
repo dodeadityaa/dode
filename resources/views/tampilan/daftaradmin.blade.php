@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,46 +17,47 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
+
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-@if(session('sukses'))
-		<div class="alert alert-success" role="alert">
-			Data Berhasil Di Inputkan
-		</div>
-	@endif
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="/dashboard" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
-    </ul>
+  <div class="wrapper">
+    @if(session('sukses'))
+    <div class="alert alert-success" role="alert">
+      Data Berhasil Di Inputkan
+    </div>
+    @endif
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="/dashboard" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="#" class="nav-link">Contact</a>
+        </li>
+      </ul>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
+      <!-- SEARCH FORM -->
+      <form class="form-inline ml-3">
+        <div class="input-group input-group-sm">
+          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-navbar" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      <!-- Notifications Dropdown Menu -->
-    </ul>
-  </nav>
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Messages Dropdown Menu -->
+        <!-- Notifications Dropdown Menu -->
+      </ul>
+    </nav>
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -86,8 +88,8 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form method="POST" class="login100-form validate-form" action="/admin/guys">
-              {{csrf_field()}}
+              <form method="POST" class="login100-form validate-form" action="/admin/guys" enctype="multipart/form-data">
+                {{csrf_field()}}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="nama">Nama Admin</label>
@@ -97,10 +99,32 @@
                     <label for="email">Email address</label>
                     <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
                   </div>
-                    <div class="form-group">
-                      <label for="no_telp">No. Telp Admin</label>
-                      <input type="no_telp" name="no_telp" class="form-control" id="no_telp" placeholder="Enter No. Telp Admin">
+                  <div class="form-group">
+                    <label for="alamat">Alamat Admin</label>
+                    <input type="alamat" name="alamat" class="form-control" id="alamat" placeholder="Enter Alamat">
+                  </div>
+                  <div class="form-group">
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                    <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
+                      <option>Jenis Kelamin</option>
+                      <option>Laki-Laki</option>
+                      <option>Perempuan</option>
+                      <option">
+                        </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="no_telp">No. Telp Admin</label>
+                    <input type="no_telp" name="no_telp" class="form-control" id="no_telp" placeholder="Enter No. Telp Admin">
+                  </div>
+                  <div class="form-group">
+                    <label for="avatar">Foto Admin</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                      <input type="file" class="form-control-file" id="avatar">
+                      </div>
                     </div>
+                  </div>
                   <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" name="password" class="form-control" id="password" placeholder=" Masukan Password">
@@ -119,7 +143,7 @@
               </form>
             </div>
             <!-- /.card -->
-            </div>
+          </div>
           <!--/.col (left) -->
           <!-- right column -->
           <div class="col-md-6">
@@ -139,81 +163,102 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+  </div>
+  <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="/admincss/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/admincss/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- jquery-validation -->
-<script src="/admincss/plugins/jquery-validation/jquery.validate.min.js"></script>
-<script src="/admincss/plugins/jquery-validation/additional-methods.min.js"></script>
-<!-- AdminLTE App -->
-<script src="/admincss/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/admincss/dist/js/demo.js"></script>
-<script type="text/javascript">
-$(document).ready(function () {
-  $.validator.setDefaults({
-    submitHandler: function () {
-      alert( "Form successful submitted!" );
-    }
-  });
-  $('#quickForm').validate({
-    rules: {
-      nama: {
-        required: true,
-        namee: true,
-      },
-      email: {
-        required: true,
-        email: true,
-      },
-      no_telp: {
-        required: true,
-        nombere: 11,
-      },
-      password: {
-        required: true,
-        minlength: 5
-      },
-      terms: {
-        required: true
-      },
-    },
-    messages: {
-      nama: {
-        required: "Form masih kosong Masukan Nama",
-        nama: "Masukan Nama Yang Benar"
-      },
-      email: {
-        required: "Form masih kosong Masukan Email",
-        email: "Masukan Email Yang Benar"
-      },
-      no_telp: {
-        required: "Form masih kosong Masukan Number Telphone",
-        no_telp: "Masukan Number Telphone Yang Benar lebih dari 11 number"
-      },
-      password: {
-        required: "Form masih kosong Masukan password",
-        minlength: "Harus Memasukan lebih dari 5 karakter"
-      },
-      terms: "Centang terlebih dahulu"
-    },
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      error.addClass('invalid-feedback');
-      element.closest('.form-group').append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('is-invalid');
-    }
-  });
-});
-</script>
+  <!-- jQuery -->
+  <script src="/admincss/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="/admincss/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- jquery-validation -->
+  <script src="/admincss/plugins/jquery-validation/jquery.validate.min.js"></script>
+  <script src="/admincss/plugins/jquery-validation/additional-methods.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/admincss/dist/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="/admincss/dist/js/demo.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $.validator.setDefaults({
+        submitHandler: function() {
+          alert("Form successful submitted!");
+        }
+      });
+      $('#quickForm').validate({
+        rules: {
+          nama: {
+            required: true,
+            nama: true,
+          },
+          email: {
+            required: true,
+            email: true,
+          },
+          alamat: {
+            required: true,
+            alamat: true,
+          },
+          jenis_kelamin: {
+            required: true,
+            jenis_kelamin: true,
+          },
+          no_telp: {
+            required: true,
+            no_telp: 11,
+          },
+          avatar: {
+            required: true,
+            avatar: true,
+          },
+          password: {
+            required: true,
+            minlength: 5
+          },
+          terms: {
+            required: true
+          },
+        },
+        messages: {
+          nama: {
+            required: "Form masih kosong Masukan Nama",
+          },
+          email: {
+            required: "Form masih kosong Masukan Email",
+            email: "Masukan Email Yang Benar"
+          },
+          alamat: {
+            required: "Form masih kosong Masukan Alamat",
+          },
+          jenis_kelamin: {
+            required: "Form masih kosong Masukan Email",
+          },
+          no_telp: {
+            required: "Form masih kosong Masukan Number Telphone",
+            no_telp: "Masukan Number Telphone Yang Benar lebih dari 11 number"
+          },
+          avatar: {
+            required: "Form masih kosong Masukan Foto",
+          },
+          password: {
+            required: "Form masih kosong Masukan password",
+            minlength: "Harus Memasukan lebih dari 5 karakter"
+          },
+          terms: "Centang terlebih dahulu"
+        },
+        errorElement: 'span',
+        errorPlacement: function(error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function(element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
+    });
+  </script>
 </body>
+
 </html>

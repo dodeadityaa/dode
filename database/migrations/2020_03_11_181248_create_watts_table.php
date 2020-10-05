@@ -15,7 +15,7 @@ class CreateWattsTable extends Migration
     {
         Schema::create('watts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('keterangan_listrik');
+            $table->string('keterangan_watt');
             $table->integer('nilai');
             $table->timestamps();
         });
